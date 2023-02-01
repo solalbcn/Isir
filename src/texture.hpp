@@ -39,7 +39,7 @@ namespace RT_ISICG
 			_pixels[ pixelId ]	   = static_cast<unsigned char>( p_color.r * 255 );
 			_pixels[ pixelId + 1 ] = static_cast<unsigned char>( p_color.g * 255 );
 			_pixels[ pixelId + 2 ] = static_cast<unsigned char>( p_color.b * 255 );
-			_pixels[ pixelId + 3 ] = static_cast<unsigned char>( p_color.b * 255 );
+			_pixels[ pixelId + 3 ] = static_cast<unsigned char>( p_color.a * 255 );
 		}
 
 		void saveJPG( const std::string & p_path, const int p_quality = 100 );
