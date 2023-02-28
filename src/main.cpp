@@ -25,7 +25,7 @@ namespace RT_ISICG
 		PerspectiveCamera camera(position, lookAt,up,fovy,aspectRatio);
 		// Create and setup the renderer.
 		Renderer renderer;
-		renderer.setIntegrator( IntegratorType::RAY_CAST );
+		renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );
 		renderer.setBackgroundColor( GREY );
 		renderer.setNbPixelSamples(4);
 		// Launch rendering.

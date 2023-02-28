@@ -1,5 +1,6 @@
 #include "renderer.hpp"
 #include "integrators/ray_cast_integrator.hpp"
+#include "integrators/direct_lighting_integrator.hpp"
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
 
@@ -19,6 +20,11 @@ namespace RT_ISICG
 			_integrator = new RayCastIntegrator();
 			break;
 		}
+		case IntegratorType::DIRECT_LIGHTING:
+		{
+			_integrator = new DirectLightingIntegrator();
+			break;
+		}
 		}
 	}
 
@@ -33,6 +39,7 @@ namespace RT_ISICG
 
 	float Renderer::renderImage( const Scene & p_scene, const BaseCamera * p_camera, Texture & p_texture )
 	{
+		std::cout << (int)_integrator->getType() << std::endl;
 		const int width	 = p_texture.getWidth();
 		const int height = p_texture.getHeight();
 		std::cout << width << std::endl;

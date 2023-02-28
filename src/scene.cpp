@@ -6,6 +6,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
+#include "lights/point_light.hpp"
 
 namespace RT_ISICG
 {
@@ -32,6 +33,9 @@ namespace RT_ISICG
 		// Add objects.
 		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
 		_addObject(new Plane("Plane1", Vec3f(0.f, -2.f, 0.f), Vec3f(0, 1, 0)));
+
+		// Add Lights.
+		_addLight(new PointLight(WHITE, Vec3f(1, 10, 1),100.f));
 
 		// Add materials.
 		_addMaterial( new ColorMaterial( "Blue", BLUE ) );
