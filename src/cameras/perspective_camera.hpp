@@ -20,8 +20,8 @@ namespace RT_ISICG
 
 		inline Ray generateRay( const float p_sx, const float p_sy ) const override
 		{
-			/// TODO !
-			return Ray( Vec3f( 0.f ), Vec3f( 0.f, 0.f, 1.f ) );
+			Vec3f hit = _viewportTopLeftCorner + p_sx * _viewportU - p_sy * _viewportV;
+			return Ray( _position,glm::normalize(hit-_position) );
 		}
 
 	  private:
@@ -30,7 +30,7 @@ namespace RT_ISICG
 	  private:
 		float _fovy			 = 60.f;
 		float _focalDistance = 1.f;
-		float _aspectRatio	 = 1.f;
+		float _aspectRatio	 = 1.5f;
 
 		// Local coordinates system
 		Vec3f _u = Vec3f( 1.f, 0.f, 0.f );

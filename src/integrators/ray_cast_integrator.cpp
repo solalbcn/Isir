@@ -11,7 +11,9 @@ namespace RT_ISICG
 		if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) )
 		{
 			/// TODO ! cos theta...
-			return hitRecord._object->getMaterial()->getFlatColor();
+			float cos = glm::dot( hitRecord._normal, -p_ray.getDirection() );
+			cos	= glm::max(cos,0.0f);
+			return hitRecord._object->getMaterial()->getFlatColor() *cos;
 		}
 		else
 		{
