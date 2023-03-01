@@ -36,6 +36,10 @@ namespace RT_ISICG
 			_integrator->setBackgroundColor( p_color );
 		}
 	}
+	void Renderer::setNbLightSamples(const int p_nbLightSamples) {
+		if ( _integrator == nullptr ) { std::cout << "[Renderer::setNbLightSamples] Integrator is null" << std::endl; }
+		else { _integrator->setNbLightSamples( p_nbLightSamples ); }
+	}
 
 	float Renderer::renderImage( const Scene & p_scene, const BaseCamera * p_camera, Texture & p_texture )
 	{
@@ -51,23 +55,12 @@ namespace RT_ISICG
 		chrono.start();
 		HitRecord p_hitRecord;
 		Vec3f color = Vec3f(0.f);
+		#pragma omp parallel for
 		for ( int j = 0; j < height; j++ )
 		{
 			for ( int i = 0; i < width; i++ )
 			{
-				/*
-				color = Vec3f(0.f);
-				for (int l = 0; l < _nbPixelSamples; l++)
-				{
-					Ray rayon = p_camera->generateRay((float)((i + randomFloat()) / (width - 1)),
-						(float)((j + randomFloat()) / (height - 1)));
-					color += _integrator->Li(p_scene, rayon, p_tmin,p_tmax);
-				}
-				color = color / (float)_nbPixelSamples;
-				p_texture.setPixel( i,j,color);
-				*/
 				Vec3f colorMean = Vec3f(0);
-
 				for (unsigned int k = 0; k < _nbPixelSamples; k++) {
 					float xOffSet = randomFloat();
 					float yOffSet = randomFloat();
