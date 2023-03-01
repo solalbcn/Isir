@@ -77,7 +77,7 @@ namespace RT_ISICG
 				}
 
 				colorMean = colorMean / (float)_nbPixelSamples;
-
+				colorMean=glm::clamp(colorMean, 0.f, 1.f);
 				p_texture.setPixel(i, j, colorMean);
 			}
 			progressBar.next();
