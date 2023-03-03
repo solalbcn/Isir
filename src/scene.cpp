@@ -70,8 +70,8 @@ namespace RT_ISICG
 		_addMaterial(new ColorMaterial("YellowColor", YELLOW));
 		_addMaterial(new ColorMaterial("CyanColor", CYAN));
 		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-		loadFileTriangleMesh("UVsphere", dataPath + "uvsphere.obj");
-		_attachMaterialToObject("CyanColor", "UVsphere_defaultobject");
+		loadFileTriangleMesh("Bunny", dataPath + "Bunny.obj");
+		_attachMaterialToObject("CyanColor", "Bunny_defaultobject");
 		// Pseudo Cornell box made with infinite planes .
 		_addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
 		_attachMaterialToObject("GreyColor", "PlaneGround");
