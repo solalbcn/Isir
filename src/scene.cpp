@@ -8,7 +8,6 @@
 #include <assimp/scene.h>
 #include "lights/point_light.hpp"
 #include "lights/quad_light.hpp"
-
 namespace RT_ISICG
 {
 	Scene::Scene() { _addMaterial( new ColorMaterial( "default", WHITE ) ); }
@@ -31,23 +30,64 @@ namespace RT_ISICG
 
 	void Scene::init()
 	{
+		initTP4();
+	}
+	void Scene::initTP1()
+	{}
+	void Scene::initTP2()
+	{}
+	void Scene::initTP3()
+	{
 		// Add objects.
-		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
+		_addObject(new Sphere("Sphere1", Vec3f(0.f, 0.f, 3.f), 1.f));
 		_addObject(new Plane("Plane1", Vec3f(0.f, -2.f, 0.f), Vec3f(0, 1, 0)));
 
 		// Add Lights.
-		//_addLight(new PointLight(WHITE, Vec3f(1, 10, 1),100.f));
-		_addLight(new QuadLight(Vec3f(1,10,2),Vec3f(-2,0,0),Vec3f(0,0,2),WHITE,40.f));
+		_addLight(new PointLight(WHITE, Vec3f(1, 10, 1),100.f));
+		//_addLight(new QuadLight(Vec3f(1, 10, 2), Vec3f(-2, 0, 0), Vec3f(0, 0, 2), WHITE, 40.f));
 
 		// Add materials.
-		_addMaterial( new ColorMaterial( "Blue", BLUE ) );
+		_addMaterial(new ColorMaterial("Blue", BLUE));
 		_addMaterial(new ColorMaterial("Red", RED));
 
 		// Link objects and materials.
-		_attachMaterialToObject( "Blue", "Sphere1" );
+		_attachMaterialToObject("Blue", "Sphere1");
 		_attachMaterialToObject("Red", "Plane1");
+		_addObject(new Plane("PlaneLeft", Vec3f(5.f, 0.f, 0.f), Vec3f(-1.f, 0.f, 0.f)));
+		_attachMaterialToObject("Red", "PlaneLeft");
+		_addObject(new Plane("PlaneRight", Vec3f(-5.f, 0.f, 0.f), Vec3f(1.f, 0.f, 0.f)));
+		_attachMaterialToObject("Blue", "PlaneRight");
 	}
+	void Scene::initTP4()
+	{
+		// Add materials .
 
+		_addMaterial(new ColorMaterial("RedColor", RED));
+		_addMaterial(new ColorMaterial("GreenColor", GREEN));
+		_addMaterial(new ColorMaterial("BlueColor", BLUE));
+		_addMaterial(new ColorMaterial("GreyColor", GREY));
+		_addMaterial(new ColorMaterial("MagentaColor", MAGENTA));
+		_addMaterial(new ColorMaterial("YellowColor", YELLOW));
+		_addMaterial(new ColorMaterial("CyanColor", CYAN));
+		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+		loadFileTriangleMesh("UVsphere", dataPath + "uvsphere.obj");
+		_attachMaterialToObject("CyanColor", "UVsphere_defaultobject");
+		// Pseudo Cornell box made with infinite planes .
+		_addObject(new Plane("PlaneGround", Vec3f(0.f, -3.f, 0.f), Vec3f(0.f, 1.f, 0.f)));
+		_attachMaterialToObject("GreyColor", "PlaneGround");
+		_addObject(new Plane("PlaneLeft", Vec3f(5.f, 0.f, 0.f), Vec3f(-1.f, 0.f, 0.f)));
+		_attachMaterialToObject("RedColor", "PlaneLeft");
+		_addObject(new Plane("PlaneCeiling", Vec3f(0.f, 7.f, 0.f), Vec3f(0.f, -1.f, 0.f)));
+		_attachMaterialToObject("GreenColor", "PlaneCeiling");
+		_addObject(new Plane("PlaneRight", Vec3f(-5.f, 0.f, 0.f), Vec3f(1.f, 0.f, 0.f)));
+		_attachMaterialToObject("BlueColor", "PlaneRight");
+		_addObject(new Plane("PlaneFront", Vec3f(0.f, 0.f, 10.f), Vec3f(0.f, 0.f, -1.f)));
+		_attachMaterialToObject("MagentaColor", "PlaneFront");
+		_addObject(new Plane("PlaneRear", Vec3f(0.f, 0.f, -10.f), Vec3f(0.f, 0.f, 1.f)));
+		_attachMaterialToObject("YellowColor", "PlaneRear");
+		// = = = = = = = = = Add lights . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+		_addLight(new PointLight(WHITE,Vec3f(0.f, 3.f, -5.f), 100.f));
+	}
 	void Scene::loadFileTriangleMesh( const std::string & p_name, const std::string & p_path )
 	{
 		std::cout << "Loading: " << p_path << std::endl;
@@ -111,8 +151,8 @@ namespace RT_ISICG
 				aiString mtlName;
 				mtl->Get( AI_MATKEY_NAME, mtlName );
 
-				/*_addMaterial( new ColorMaterial( std::string( mtlName.C_Str() ), kd ) );
-				_attachMaterialToObject( mtlName.C_Str(), meshName );*/
+				_addMaterial( new ColorMaterial( std::string( mtlName.C_Str() ), kd ) );
+				_attachMaterialToObject( mtlName.C_Str(), meshName );
 			}
 
 			std::cout << "-- [DONE] " << triMesh->getNbTriangles() << " triangles, " << triMesh->getNbVertices()

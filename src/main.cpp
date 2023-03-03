@@ -15,7 +15,7 @@ namespace RT_ISICG
 		// Create and init scene.
 		Scene scene;
 		scene.init();
-		Vec3f position = Vec3f(0, 0, -2);
+		Vec3f position = Vec3f(0, 2, -6);
 		Vec3f lookAt = Vec3f(0,0,79);
 		Vec3f up = Vec3f(0,1,0);
 		float fovy = 60;
@@ -27,8 +27,8 @@ namespace RT_ISICG
 		Renderer renderer;
 		renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );
 		renderer.setBackgroundColor( GREY );
-		renderer.setNbPixelSamples(16);
-		renderer.setNbLightSamples(16);
+		renderer.setNbPixelSamples(1);
+		renderer.setNbLightSamples(1);
 		// Launch rendering.
 		std::cout << "Rendering..." << std::endl;
 		std::cout << "- Image size: " << imgWidth << "x" << imgHeight << std::endl;

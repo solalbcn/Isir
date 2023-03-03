@@ -24,6 +24,10 @@ namespace RT_ISICG
 
 		// Hard coded initialization.
 		void init();
+		void initTP1();
+		void initTP2();
+		void initTP3();
+		void initTP4();
 
 		// Initialization from file.
 		void init( const std::string & p_path ) { throw std::exception( "Not implemented !" ); }
@@ -47,6 +51,7 @@ namespace RT_ISICG
 		ObjectMap	_objectMap;
 		MaterialMap _materialMap;
 		LightList	_lightList;
+		std::string dataPath= "src/data/";
 	};
 } // namespace RT_ISICG
 
