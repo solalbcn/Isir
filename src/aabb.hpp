@@ -21,24 +21,26 @@ namespace RT_ISICG
 		// Extends the AABB with a point
 		inline void extend( const Vec3f & p_point )
 		{
-			if (_min.x > p_point.x)
-				_min.x = p_point.x;
-			if (_min.y > p_point.y)
-				_min.y = p_point.y;
-			if (_min.z > p_point.z)
-				_min.z = p_point.z;
-			if (_max.x > p_point.x)
-				_max.x = p_point.x;
-			if (_max.y > p_point.y)
-				_max.y = p_point.y;
-			if (_max.z > p_point.z)
-				_max.z = p_point.z;
+			_min.x = std::min( _min.x, p_point.x );
+			_min.y = std::min( _min.y, p_point.y );
+			_min.z = std::min( _min.z, p_point.z);
+
+			_max.x = std::max( _max.x, p_point.x );
+			_max.y = std::max( _max.y, p_point.y );
+			_max.z = std::max( _max.z, p_point.z);
 
 			/// TODO
 		}
 		// Extends the AABB with another AABB
 		inline void extend( const AABB & p_aabb )
 		{
+			_min.x = std::min( _min.x, p_aabb.getMin().x );
+			_min.y = std::min( _min.y, p_aabb.getMin().y );
+			_min.z = std::min( _min.z, p_aabb.getMin().z);
+
+			_max.x = std::max( _max.x, p_aabb.getMin().x );
+			_max.y = std::max( _max.y, p_aabb.getMin().y );
+			_max.z = std::max( _max.z, p_aabb.getMin().z);
 			/// TODO
 		}
 

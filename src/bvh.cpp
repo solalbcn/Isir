@@ -1,6 +1,7 @@
 #include "bvh.hpp"
 #include "geometry/triangle_mesh_geometry.hpp"
 #include "utils/chrono.hpp"
+#include <algorithm>
 
 namespace RT_ISICG
 {
@@ -15,7 +16,7 @@ namespace RT_ISICG
 
 		Chrono chr;
 		chr.start();
-
+		_buildRec( _root, 0, p_triangles->size() - 1, 0 );
 		/// TODO
 
 		chr.stop();
@@ -40,6 +41,19 @@ namespace RT_ISICG
 						 const unsigned int p_lastTriangleId,
 						 const unsigned int p_depth )
 	{
+		for ( int i = p_firstTriangleId; i<=p_lastTriangleId;i++)
+		{
+			//p_node->_aabb.extend( _triangles->at(i).getAABB() );
+		}
+		if (!(p_depth == _maxDepth || (p_lastTriangleId - p_firstTriangleId) <= _maxTrianglesPerLeaf)) {
+			int axePartition = p_node->_aabb.largestAxis();
+			std::vector<TriangleMeshGeometry>::iterator idPartition;
+			//idPartition= std::partition();
+			//_buildRec( p_node->_left, p_firstTriangleId, idPartition, p_depth + 1 );
+			//_buildRec( p_node->_right, idPartition, p_lastTriangleId, p_depth + 1 );
+
+
+		}
 		/// TODO
 	}
 

@@ -13,6 +13,7 @@ namespace RT_ISICG
 		friend class TriangleMeshGeometry;
 
 	  public:
+		AABB _aabb;
 		MeshTriangle() = delete;
 		MeshTriangle( const std::string & p_name ) : BaseObject( p_name ) {}
 		virtual ~MeshTriangle() = default;
@@ -27,7 +28,7 @@ namespace RT_ISICG
 		inline void addVertex( const float p_x, const float p_y, const float p_z )
 		{
 			_vertices.emplace_back( p_x, p_y, p_z );
-			_aabb.extend(Vec3f(p_x, p_y, p_z));
+			_aabb.extend(_vertices.back());
 		}
 		inline void addNormal( const float p_x, const float p_y, const float p_z )
 		{
@@ -49,7 +50,7 @@ namespace RT_ISICG
 		std::vector<Vec3f>				  _normals;
 		std::vector<Vec2f>				  _uvs;
 		std::vector<TriangleMeshGeometry> _triangles;
-		AABB _aabb;
+
 	};
 } // namespace RT_ISICG
 
