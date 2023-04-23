@@ -4,6 +4,7 @@
 #include "base_object.hpp"
 #include "geometry/triangle_mesh_geometry.hpp"
 #include "aabb.hpp"
+#include "bvh.hpp"
 #include <vector>
 
 namespace RT_ISICG
@@ -13,7 +14,6 @@ namespace RT_ISICG
 		friend class TriangleMeshGeometry;
 
 	  public:
-		AABB _aabb;
 		MeshTriangle() = delete;
 		MeshTriangle( const std::string & p_name ) : BaseObject( p_name ) {}
 		virtual ~MeshTriangle() = default;
@@ -34,6 +34,7 @@ namespace RT_ISICG
 		{
 			_normals.emplace_back( p_x, p_y, p_z );
 		}
+		inline void initializeBVH() { _bvh.build(&_triangles); }
 		inline void addUV( const float p_u, const float p_v ) { _uvs.emplace_back( p_u, p_v ); }
 
 		// Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
@@ -46,6 +47,8 @@ namespace RT_ISICG
 		bool intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
 
 	  private:
+		AABB _aabb;
+		BVH _bvh;
 		std::vector<Vec3f>				  _vertices;
 		std::vector<Vec3f>				  _normals;
 		std::vector<Vec2f>				  _uvs;

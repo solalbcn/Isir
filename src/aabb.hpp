@@ -34,13 +34,13 @@ namespace RT_ISICG
 		// Extends the AABB with another AABB
 		inline void extend( const AABB & p_aabb )
 		{
-			_min.x = std::min( _min.x, p_aabb.getMin().x );
-			_min.y = std::min( _min.y, p_aabb.getMin().y );
-			_min.z = std::min( _min.z, p_aabb.getMin().z);
+			if (_min.x > p_aabb._min.x) { _min.x = p_aabb._min.x; }
+			if (_min.y > p_aabb._min.y) { _min.y = p_aabb._min.y; }
+			if (_min.z > p_aabb._min.z) { _min.z = p_aabb._min.z; }
 
-			_max.x = std::max( _max.x, p_aabb.getMin().x );
-			_max.y = std::max( _max.y, p_aabb.getMin().y );
-			_max.z = std::max( _max.z, p_aabb.getMin().z);
+			if (_max.x < p_aabb._max.x) { _max.x = p_aabb._max.x; }
+			if (_max.y < p_aabb._max.y) { _max.y = p_aabb._max.y; }
+			if (_max.z < p_aabb._max.z) { _max.z = p_aabb._max.z; }
 			/// TODO
 		}
 

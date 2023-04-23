@@ -2,6 +2,7 @@
 #define __RT_ISICG_TRIANGLE_GEOMETRY__
 
 #include "base_geometry.hpp"
+#include "aabb.hpp"
 
 namespace RT_ISICG
 {
@@ -10,6 +11,7 @@ namespace RT_ISICG
 	class TriangleMeshGeometry : public BaseGeometry
 	{
 	  public:
+		  AABB _aabb;
 		TriangleMeshGeometry()			= delete;
 		virtual ~TriangleMeshGeometry() = default;
 
@@ -21,6 +23,8 @@ namespace RT_ISICG
 		bool intersect( const Ray & p_ray, float & p_t,Vec3f & p_n ) const;
 
 		inline const Vec3f & getFaceNormal() const { return _faceNormal; }
+
+		MeshTriangle* getRefMesh() { return _refMesh; }
 
 	  private:
 		MeshTriangle * _refMesh;

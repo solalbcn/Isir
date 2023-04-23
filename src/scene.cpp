@@ -1,5 +1,7 @@
 #include "scene.hpp"
 #include "materials/color_material.hpp"
+#include "materials/lambert_material.hpp"
+#include "materials/matte_material.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "objects/triangle_mesh.hpp"
@@ -30,7 +32,7 @@ namespace RT_ISICG
 
 	void Scene::init()
 	{
-		initTP4();
+		initTP5();
 	}
 	void Scene::initTP1()
 	{}
@@ -88,6 +90,20 @@ namespace RT_ISICG
 		// = = = = = = = = = Add lights . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		_addLight(new PointLight(WHITE,Vec3f(0.f, 3.f, -5.f), 100.f));
 	}
+	void Scene::initTP5()
+	{
+		_addMaterial(new LambertMaterial("GreyLambert", GREY));
+		_addMaterial(new LambertMaterial("RedLambert", RED));
+		_addMaterial(new MatteMaterial("GreyMatte", GREY,0.4));
+		_addMaterial(new MatteMaterial("RedMatte", RED,0.4));
+
+
+		_addObject(new Sphere("Sphere1", Vec3f(0.f, 0.f, 3.f), 1.f));
+		_attachMaterialToObject("GreyMatte", "Sphere1");
+		_addObject(new Plane("PlaneLeft", Vec3f(0.f, -2.f, 0.f), Vec3f(0.f, -1.f, 0.f)));
+		_attachMaterialToObject("RedMatte", "PlaneLeft");
+		_addLight(new PointLight(WHITE, Vec3f(0.f, 0.f, -2.f), 60.f));
+	}
 	void Scene::loadFileTriangleMesh( const std::string & p_name, const std::string & p_path )
 	{
 		std::cout << "Loading: " << p_path << std::endl;
@@ -128,7 +144,6 @@ namespace RT_ISICG
 				const aiFace & face = mesh->mFaces[ f ];
 				triMesh->addTriangle( face.mIndices[ 0 ], face.mIndices[ 1 ], face.mIndices[ 2 ] );
 			}
-
 			_addObject( triMesh );
 
 			const aiMaterial * const mtl = scene->mMaterials[ mesh->mMaterialIndex ];
@@ -154,7 +169,7 @@ namespace RT_ISICG
 				_addMaterial( new ColorMaterial( std::string( mtlName.C_Str() ), kd ) );
 				_attachMaterialToObject( mtlName.C_Str(), meshName );
 			}
-
+			triMesh->initializeBVH();
 			std::cout << "-- [DONE] " << triMesh->getNbTriangles() << " triangles, " << triMesh->getNbVertices()
 					  << " vertices." << std::endl;
 		}
