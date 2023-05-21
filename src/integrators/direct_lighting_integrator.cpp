@@ -23,6 +23,7 @@ namespace RT_ISICG
 		Vec3f li = VEC3F_ZERO;
 		for (BaseLight *light : p_scene.getLights())
 		{
+			Vec3f currentColor = VEC3F_ZERO;
 			int nbOfSamples = 1;
 			if (light->getIsSurface())
 				nbOfSamples = _nbLightSamples;
@@ -34,9 +35,9 @@ namespace RT_ISICG
 				float cos = glm::dot( lightSample._direction, p_normal );
 				cos		  = glm::max( cos, 0.0f );
 				if ( !p_scene.intersectAny( rayon, 0, lightSample._distance ) )
-					li +=  lightSample._radiance*p_hitRecord._object->getMaterial()->shade(p_ray,p_hitRecord,lightSample) * cos;
+					currentColor +=  lightSample._radiance*p_hitRecord._object->getMaterial()->shade(p_ray,p_hitRecord,lightSample) * cos;
 			}
-			li = li/(float)nbOfSamples;
+			li = currentColor/(float)nbOfSamples;
 
 		}
 		return li;
