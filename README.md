@@ -13,4 +13,5 @@ Au cours de cette UE nous avons pu implémenter plusieurs fonctionnalités :
 - Surface implicit et sphere tracing
 
 Résultat:
-![](résultat.png)
+
+![](Résultat.png)
