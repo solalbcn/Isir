@@ -10,8 +10,8 @@ Au cours de cette UE nous avons pu implémenter plusieurs fonctionnalités :
 - Structure accélératrice BVH et AABB
 - BRDF Lambert, Oren-Nayar, Phong, Blinn-Phong, Cook-Torrance
 - Réflexion et réfraction
-- Surface implicit et sphere tracing
+- Surface implicite et sphere tracing
 
-Résultat:
+Résultat :
 
 ![](Résultat.png)
